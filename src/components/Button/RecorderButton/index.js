@@ -11,7 +11,7 @@ const styleButton = {
   cursor: 'pointer',
 }
 
-const SECONDS_AMOUNT = 30
+const SECONDS_AMOUNT = 5
 
 function RecorderButton({listRef}) {
   const mediaRecorder = useRef(null)
@@ -81,7 +81,7 @@ function RecorderButton({listRef}) {
   },[countDown, stateTimer])
 
   const stopTimer = useCallback(() => {
-    if(!isRecording.current || stateTimer < 1) {
+    if(!isRecording.current || stateTimer < 0) {
       console.log('parando...')
       clearInterval(timer.current);
       setStateTimer(SECONDS_AMOUNT)
@@ -109,7 +109,6 @@ function RecorderButton({listRef}) {
         let chunks = []
         
         mediaRecorder.current.ondataavailable = data => {
-          console.log(data)
           chunks.push(data.data)
         }
   
